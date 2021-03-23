@@ -14,7 +14,7 @@
                     "interactions": "Hold(duration=0.0001,pressPoint=0.0001)"
                 },
                 {
-                    "name": "VerticalRotate",
+                    "name": "LockVerticalRotate",
                     "type": "Value",
                     "id": "b1aab858-0033-4ad2-9aa7-ed72a1f2d89c",
                     "expectedControlType": "",
@@ -22,7 +22,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "HorizontalRotate",
+                    "name": "LockHorizontalRotate",
                     "type": "Value",
                     "id": "64c3738b-3821-4c00-a2da-e1ca89ffd31e",
                     "expectedControlType": "",
@@ -51,103 +51,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Button With One Modifier",
-                    "id": "523a519f-baf2-4d6d-b8d6-6241e53a55ff",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "VerticalRotate",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "0c4855d8-29cf-4236-92c7-a30b279f047e",
+                    "name": "",
+                    "id": "b90fb055-a794-4e1d-9082-db950d67b70d",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "VerticalRotate",
+                    "action": "LockVerticalRotate",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "092a0637-f41c-4622-8391-d9a08cb79933",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "VerticalRotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "49805fc1-73b9-43ec-bf4d-d64184aec605",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "HorizontalRotate",
-                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
-                    "id": "0d58ea1f-1b29-4e51-b65d-bba4c9b022a5",
+                    "name": "",
+                    "id": "98a86325-43c6-4866-bb51-2732cdd359be",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HorizontalRotate",
+                    "action": "LockHorizontalRotate",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "d2f06a64-06a0-4851-afb4-fb32e07e827c",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "HorizontalRotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button With One Modifier",
-                    "id": "43995982-ec77-4a87-9460-1ed239e0ad1b",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveObject",
-                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
-                    "id": "422c7cc1-d558-43e2-9896-c6f1cbf33ba2",
+                    "name": "",
+                    "id": "8efa7e7c-c6d1-4d12-86f2-da9715ea3218",
                     "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MoveObject",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "fa70d505-5a54-4924-9b91-3c86b5f364e2",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveObject",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }

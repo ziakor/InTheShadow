@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class boxLevelSelector : MonoBehaviour
+public class BoxLevelSelector : MonoBehaviour
 {
     // Start is called before the first frame update
     public Color default_Color;
@@ -26,10 +26,13 @@ public class boxLevelSelector : MonoBehaviour
 
     public void BoxEnter()
     {
+      // Debug.Log("ENTER " + box.name);
+      
       box.GetComponent<MeshRenderer>().material.color = hover_Color;
     }
     public void BoxLeave()
     {
+      // Debug.Log("LEAVE " + box.name);
       box.GetComponent<MeshRenderer>().material.color = default_Color;
     }
 
@@ -44,7 +47,7 @@ public class boxLevelSelector : MonoBehaviour
       transition.SetTrigger("Fade");
       yield return new WaitForSeconds(transition_Time);
 
-      SceneManager.LoadScene(scene_Name); 
+      SceneManager.LoadScene(scene_Name, LoadSceneMode.Single); 
     }
 
     public void Start_Drag()

@@ -27,7 +27,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Hold(duration=0.0001,pressPoint=0.0001)""
                 },
                 {
-                    ""name"": ""VerticalRotate"",
+                    ""name"": ""LockVerticalRotate"",
                     ""type"": ""Value"",
                     ""id"": ""b1aab858-0033-4ad2-9aa7-ed72a1f2d89c"",
                     ""expectedControlType"": """",
@@ -35,7 +35,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""HorizontalRotate"",
+                    ""name"": ""LockHorizontalRotate"",
                     ""type"": ""Value"",
                     ""id"": ""64c3738b-3821-4c00-a2da-e1ca89ffd31e"",
                     ""expectedControlType"": """",
@@ -64,103 +64,37 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""523a519f-baf2-4d6d-b8d6-6241e53a55ff"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalRotate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""0c4855d8-29cf-4236-92c7-a30b279f047e"",
+                    ""name"": """",
+                    ""id"": ""b90fb055-a794-4e1d-9082-db950d67b70d"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""VerticalRotate"",
+                    ""action"": ""LockVerticalRotate"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""092a0637-f41c-4622-8391-d9a08cb79933"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""VerticalRotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""49805fc1-73b9-43ec-bf4d-d64184aec605"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HorizontalRotate"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""0d58ea1f-1b29-4e51-b65d-bba4c9b022a5"",
+                    ""name"": """",
+                    ""id"": ""98a86325-43c6-4866-bb51-2732cdd359be"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""HorizontalRotate"",
+                    ""action"": ""LockHorizontalRotate"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""d2f06a64-06a0-4851-afb4-fb32e07e827c"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HorizontalRotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Button With One Modifier"",
-                    ""id"": ""43995982-ec77-4a87-9460-1ed239e0ad1b"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveObject"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""422c7cc1-d558-43e2-9896-c6f1cbf33ba2"",
+                    ""name"": """",
+                    ""id"": ""8efa7e7c-c6d1-4d12-86f2-da9715ea3218"",
                     ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MoveObject"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""fa70d505-5a54-4924-9b91-3c86b5f364e2"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveObject"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -170,8 +104,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
-        m_Player_VerticalRotate = m_Player.FindAction("VerticalRotate", throwIfNotFound: true);
-        m_Player_HorizontalRotate = m_Player.FindAction("HorizontalRotate", throwIfNotFound: true);
+        m_Player_LockVerticalRotate = m_Player.FindAction("LockVerticalRotate", throwIfNotFound: true);
+        m_Player_LockHorizontalRotate = m_Player.FindAction("LockHorizontalRotate", throwIfNotFound: true);
         m_Player_MoveObject = m_Player.FindAction("MoveObject", throwIfNotFound: true);
     }
 
@@ -223,16 +157,16 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Rotate;
-    private readonly InputAction m_Player_VerticalRotate;
-    private readonly InputAction m_Player_HorizontalRotate;
+    private readonly InputAction m_Player_LockVerticalRotate;
+    private readonly InputAction m_Player_LockHorizontalRotate;
     private readonly InputAction m_Player_MoveObject;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
-        public InputAction @VerticalRotate => m_Wrapper.m_Player_VerticalRotate;
-        public InputAction @HorizontalRotate => m_Wrapper.m_Player_HorizontalRotate;
+        public InputAction @LockVerticalRotate => m_Wrapper.m_Player_LockVerticalRotate;
+        public InputAction @LockHorizontalRotate => m_Wrapper.m_Player_LockHorizontalRotate;
         public InputAction @MoveObject => m_Wrapper.m_Player_MoveObject;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -246,12 +180,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Rotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
-                @VerticalRotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVerticalRotate;
-                @VerticalRotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVerticalRotate;
-                @VerticalRotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnVerticalRotate;
-                @HorizontalRotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalRotate;
-                @HorizontalRotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalRotate;
-                @HorizontalRotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHorizontalRotate;
+                @LockVerticalRotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockVerticalRotate;
+                @LockVerticalRotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockVerticalRotate;
+                @LockVerticalRotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockVerticalRotate;
+                @LockHorizontalRotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockHorizontalRotate;
+                @LockHorizontalRotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockHorizontalRotate;
+                @LockHorizontalRotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockHorizontalRotate;
                 @MoveObject.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
                 @MoveObject.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
                 @MoveObject.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
@@ -262,12 +196,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
-                @VerticalRotate.started += instance.OnVerticalRotate;
-                @VerticalRotate.performed += instance.OnVerticalRotate;
-                @VerticalRotate.canceled += instance.OnVerticalRotate;
-                @HorizontalRotate.started += instance.OnHorizontalRotate;
-                @HorizontalRotate.performed += instance.OnHorizontalRotate;
-                @HorizontalRotate.canceled += instance.OnHorizontalRotate;
+                @LockVerticalRotate.started += instance.OnLockVerticalRotate;
+                @LockVerticalRotate.performed += instance.OnLockVerticalRotate;
+                @LockVerticalRotate.canceled += instance.OnLockVerticalRotate;
+                @LockHorizontalRotate.started += instance.OnLockHorizontalRotate;
+                @LockHorizontalRotate.performed += instance.OnLockHorizontalRotate;
+                @LockHorizontalRotate.canceled += instance.OnLockHorizontalRotate;
                 @MoveObject.started += instance.OnMoveObject;
                 @MoveObject.performed += instance.OnMoveObject;
                 @MoveObject.canceled += instance.OnMoveObject;
@@ -278,8 +212,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnRotate(InputAction.CallbackContext context);
-        void OnVerticalRotate(InputAction.CallbackContext context);
-        void OnHorizontalRotate(InputAction.CallbackContext context);
+        void OnLockVerticalRotate(InputAction.CallbackContext context);
+        void OnLockHorizontalRotate(InputAction.CallbackContext context);
         void OnMoveObject(InputAction.CallbackContext context);
     }
 }
