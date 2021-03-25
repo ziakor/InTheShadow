@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+
 namespace MainMenu
 {
 
@@ -81,7 +82,10 @@ namespace MainMenu
     [Space(10)]
     [SerializeField] private Toggle invertYToggle;
 
-    [SerializeField] private Toggle testMode;
+    [SerializeField] private bool testMode = false;
+    [SerializeField] private GameObject continueButton;
+
+		[SerializeField]private GameObject myEventSystem;
 
     #endregion
 
@@ -90,8 +94,19 @@ namespace MainMenu
     
     void Start()
     {
+			// Debug.Log(">>>" + newGameDialog.transform.Find("Button").gameObject.transform.GetChild(0).gameObject);
+			Debug.Log(">>>" + mainMenuCanvas.transform.GetChild(0).gameObject);
+
+			myEventSystem = GameObject.Find("EventSystem");
       menuSelectedNumber = Menu.IdNewGame;
+			if (Player.HasSavegame)
+			{
+				continueButton.GetComponent<Button>().interactable = true;
+			}
     }
+		void Update()
+		{
+		}
 
 
     private void ClickSound()
@@ -109,18 +124,21 @@ namespace MainMenu
 
         confirmationMenu.SetActive(true);
         newGameDialog.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(newGameDialog.transform.Find("Button").gameObject.transform.GetChild(0).gameObject);
       }
       else if (SelectedButton == "ContinueGame")
       {
         menuSelectedNumber = Menu.IdContinueGame;
         mainMenuCanvas.SetActive(false);
-        // add confirmation box with " Are you sure about that ?"
+        ContinueGame();
       }
       else if (SelectedButton == "Settings")
       {
         menuSelectedNumber = Menu.IdSettings;
         mainMenuCanvas.SetActive(false);
         menuSettings.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(menuSettings.transform.GetChild(0).gameObject);
+
 
 
       }
@@ -129,6 +147,8 @@ namespace MainMenu
         menuSelectedNumber = Menu.IdCredits;
         mainMenuCanvas.SetActive(false);
         creditsMenu.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(creditsMenu.transform.GetChild(3).gameObject);
+
 
 
       }
@@ -143,6 +163,8 @@ namespace MainMenu
         menuSelectedNumber = Menu.IdSettingsGraphic;
         menuSettings.SetActive(false);
         graphicsMenu.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(graphicsMenu.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject);
+
 
       }
       else if (SelectedButton == "SettingsSound")
@@ -150,6 +172,8 @@ namespace MainMenu
         menuSelectedNumber = Menu.IdSettingsSound;
         menuSettings.SetActive(false);
         soundMenu.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(soundMenu.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject);
+
 
       }
       else if (SelectedButton == "SettingsGameplay")
@@ -157,6 +181,8 @@ namespace MainMenu
         menuSelectedNumber = Menu.IdSettingsGameplay;
         menuSettings.SetActive(false);
         gameplayMenu.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(gameplayMenu.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject);
+
 
       }
       else if (SelectedButton == "SettingsGameplayController")
@@ -164,6 +190,8 @@ namespace MainMenu
         menuSelectedNumber = Menu.IdSettingsGameplayController;
         gameplayMenu.SetActive(false);
         controlsMenu.SetActive(true);
+				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(controlsMenu.transform.GetChild(2).gameObject);
+
       }
       Debug.Log((int)menuSelectedNumber);
 
@@ -181,6 +209,8 @@ namespace MainMenu
       else 
         gameplayMenu.SetActive(false);
       menuSettings.SetActive(true);
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(menuSettings.transform.GetChild(0).gameObject);
+
     }
 
     public void BackToMainMenu(string current)
@@ -199,12 +229,16 @@ namespace MainMenu
         levelSelection.SetActive(false);
       }
       mainMenuCanvas.SetActive(true);
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(mainMenuCanvas.transform.GetChild(0).gameObject);
+
     }
     
     public void BackToGameplaySettings()
     {
       gameplayMenu.SetActive(true);
       controlsMenu.SetActive(false);
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(gameplayMenu.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject);
+
     }
     public void VolumeSlider()
     {
@@ -290,15 +324,19 @@ namespace MainMenu
       controllerSensitivityText.text = controllerSensitivitySlider.value.ToString("#");
     }
 
+
     public void GameplayApply()
     {
-      Debug.Log("Gameplay Apply !");
+      Debug.Log("Gameplay Apply ! ");
       //add confirmation box 
-      if (invertYToggle)
+      if (invertYToggle.isOn)
       {
+				Debug.Log("InvertY On");
         PlayerPrefs.SetInt("InvertY", 1);
       }
       else {
+				Debug.Log("InvertY Off");
+
         PlayerPrefs.SetInt("InvertY", 0);
       }
       PlayerPrefs.SetFloat("SensibilityController", controllerSensitivitySlider.value);
@@ -322,23 +360,32 @@ namespace MainMenu
       Application.OpenURL("https://www.linkedin.com/in/dihauet/");
     }
     
+		public void HandleChangeTestMode()
+		{
+			testMode = !testMode;
+		}
     public void StartNewGame()
     {
-      if (testMode)
-      {
-        PlayerPrefs.SetInt("TestMode", 1);
-      }
-      else
-        PlayerPrefs.SetInt("TestMode", 0);
+			Debug.Log("test mode " + testMode);
+      Player.TestModePlayer(testMode);
+			Debug.Log("PlayerTestMode : " + Player.testmode);
+			Player.ChangeLevel(1);
+			Player.ChangeCurrentLevel(1);
+			Player.SavePlayer();
       confirmationMenu.SetActive(false);
       newGameDialog.SetActive(false);
       levelSelection.SetActive(true);
-      
-      
-    }
-    void Update()
-    {
-    }
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(levelSelection.transform.GetChild(2).gameObject);
+
+		}
+		public void ContinueGame()
+		{
+			confirmationMenu.SetActive(false);
+      newGameDialog.SetActive(false);
+      levelSelection.SetActive(true);
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(levelSelection.transform.GetChild(2).gameObject);
+
+		}
   }
 }
 

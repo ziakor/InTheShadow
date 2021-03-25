@@ -33,6 +33,8 @@ public class ObjectMovement : MonoBehaviour
 	private float mouseZCoord;
 	private Vector3 mouseMoveOffset;
 
+	public GameObject	GameActive;
+
 	private void Awake()
 	{
 		is_Drag = false;
@@ -72,7 +74,6 @@ public class ObjectMovement : MonoBehaviour
 
 	private void HandleVerticalRotatePerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("VerticalRotatePerform");
 		GetObjectUnderMouse();
 		if (objectToRotate)
 		{
@@ -82,14 +83,12 @@ public class ObjectMovement : MonoBehaviour
 	}
 	private void HandleVerticalRotateCanceled(InputAction.CallbackContext context)
 	{
-		Debug.Log("VerticalRotateCancel");
 
 		this.verticalRotate = true;
 		this.horizontalRotate = true;
 	}
 	 private void HandleHorizontalRotatePerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("HorizontalRotatePerform");
 		GetObjectUnderMouse();
 		if (objectToRotate != null)
 		{
@@ -99,24 +98,20 @@ public class ObjectMovement : MonoBehaviour
 	}
 	private void HandleHorizontalRotateCanceled(InputAction.CallbackContext context)
 	{
-		Debug.Log("HorizontalRotateCancel");
 
 		this.horizontalRotate = true;
 		this.verticalRotate = true;
 	}
 	private void HandleMoveObjectPerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("MoveObjectPerform");
 		this.moveObject = true;
 	}
 	private void HandleMoveObjectCanceled(InputAction.CallbackContext context)
 	{
-		Debug.Log("MoveObjectCancel");
 		this.moveObject = false;
 	}
 	private void HandleLeftClickCanceled(InputAction.CallbackContext context)
 	{
-		Debug.Log("RotateAllCancel");
 		this.is_Drag = false;
 		//Ajouter condition si il y a le shift ou le ctrl dactif, ne pas reset
 		this.verticalRotate = true;
@@ -130,7 +125,6 @@ public class ObjectMovement : MonoBehaviour
 	
 	private void HandleLeftClickPerformed(InputAction.CallbackContext context)
 	{
-		Debug.Log("RotateAllPerform");
 
 		GetObjectUnderMouse();
 		if (objectToRotate != null)
@@ -152,7 +146,7 @@ public class ObjectMovement : MonoBehaviour
 		Vector3 coor = Mouse.current.position.ReadValue();
 		if (Physics.Raycast(gameCamera.ScreenPointToRay(coor), out hit)) 
 		{
-			if (hit.collider.gameObject.tag == "Triggerable")
+			if (hit.collider.gameObject.tag == "Triggerable" && (!GameActive  || !GameActive.activeSelf))
 			{
 				objectToRotate = hit.collider.gameObject;
 				Debug.Log(objectToRotate.name);
