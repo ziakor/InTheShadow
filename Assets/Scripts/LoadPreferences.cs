@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,30 +13,30 @@ namespace MainMenu
     //BRIGHTNESS
     [SerializeField] private ColorAdjustEffect colorAdjustEffect;
     [Space(20)]
-    [SerializeField] private Slider brightnessSlider;
-    [SerializeField] private Text brightnessText;
+    [SerializeField] private Slider brightnessSlider = null;
+    [SerializeField] private Text brightnessText = null;
     //CONTRAST
     [Space(20)]
-    [SerializeField] private Slider contrastSlider;
-    [SerializeField] private Text contrastText;
+    [SerializeField] private Slider contrastSlider = null;
+    [SerializeField] private Text contrastText = null;
     //SATURITY
     [Space(20)]
-    [SerializeField] private Slider saturationSlider;
-    [SerializeField] private Text saturationText;
+    [SerializeField] private Slider saturationSlider = null;
+    [SerializeField] private Text saturationText = null;
     //VOLUME
     [Space(20)]
-    [SerializeField] private Text volumeText;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Text volumeText = null;
+    [SerializeField] private Slider volumeSlider = null;
     //SENSITIVITY
     [Space(20)]
-    [SerializeField] private Text controllerText;
-    [SerializeField] private Slider controllerSlider;
+    [SerializeField] private Text controllerText = null;
+    [SerializeField] private Slider controllerSlider = null;
     //INVERT Y
     [Space(20)]
-    [SerializeField] private Toggle invertYToggle;
+    [SerializeField] private Toggle invertYToggle = null;
     [Space(20)]
     // [SerializeField] private bool canUse = false;
-    [SerializeField] private MainMenu mainMenu;
+    [SerializeField] private MainMenu mainMenu = null;
     #endregion
     private void Awake()
     {
@@ -48,61 +48,92 @@ namespace MainMenu
         {
           float prefBrightness = PlayerPrefs.GetFloat("Brightness");
 
-          brightnessSlider.value = prefBrightness;
-          brightnessText.text = prefBrightness.ToString("n1"); 
+					if (brightnessSlider)
+						brightnessSlider.value = prefBrightness;
+          if (brightnessText)
+						brightnessText.text = prefBrightness.ToString("n1"); 
           colorAdjustEffect.brightness = prefBrightness;
+					Player.brightness = prefBrightness;
         }
         else
           mainMenu.ResetBrightness();
         if (PlayerPrefs.HasKey("Contrast"))
         {
           float prefContrast = PlayerPrefs.GetFloat("Contrast");
-          
-          contrastSlider.value = prefContrast;
-          contrastText.text = prefContrast.ToString("n1");
+          if(contrastSlider)
+						contrastSlider.value = prefContrast;
+          if (contrastText)
+						contrastText.text = prefContrast.ToString("n1");
           colorAdjustEffect.contrast = prefContrast;
+					Player.contrast = prefContrast;
         }
         else
           mainMenu.ResetContrast();
         if (PlayerPrefs.HasKey("Saturation"))
         {
           float prefSaturation = PlayerPrefs.GetFloat("Saturation");
-
-          saturationSlider.value = prefSaturation;
-          saturationText.text = prefSaturation.ToString("n1");
+					if (saturationSlider)
+						saturationSlider.value = prefSaturation;
+          if (saturationText)
+						saturationText.text = prefSaturation.ToString("n1");
           colorAdjustEffect.saturation = prefSaturation;
+					Player.saturation = prefSaturation;
         }
         else
-          mainMenu.ResetSaturation();
+				{
+					if (mainMenu)
+						mainMenu.ResetSaturation();
+				}
       }
       if (PlayerPrefs.HasKey("Volume"))
       {
         float prefVolume = PlayerPrefs.GetFloat("Volume");
-
-        volumeSlider.value = prefVolume;
-        volumeText.text = prefVolume.ToString("n1");
+				if (volumeSlider)
+					volumeSlider.value = prefVolume;
+				if (volumeText)
+					volumeText.text = prefVolume.ToString("n1");
       }
       else
-        mainMenu.resetSound();
+			{
+				if (mainMenu)
+					mainMenu.resetSound();
+			}
       if (PlayerPrefs.HasKey("SensibilityController"))
       {
         float prefSensiController = PlayerPrefs.GetFloat("SensibilityController");
-        controllerSlider.value = prefSensiController;
-        controllerText.text = prefSensiController.ToString("#");
+				if(controllerSlider)
+					controllerSlider.value = prefSensiController;
+				if (contrastText)
+					controllerText.text = prefSensiController.ToString("#");
+				Player.sensibilityMouse = prefSensiController;
       }
       else
-        mainMenu.ResetSensi();
+			{
+				if (mainMenu)
+					mainMenu.ResetSensi();
+			}
       if (PlayerPrefs.HasKey("InvertY"))
       {
         if (PlayerPrefs.GetInt("InvertY") == 1)
         {
-          invertYToggle.isOn = true;
+					if(invertYToggle)
+						invertYToggle.isOn = true;
+					Player.invertY = true;
         }
         else
-          invertYToggle.isOn= false;
+				{
+					if(invertYToggle)
+						invertYToggle.isOn= false;
+					Player.invertY = false;
+					
+				}
       }
       else
-        invertYToggle.isOn = false;
+			{
+				if (invertYToggle)
+					invertYToggle.isOn = false;
+					Player.invertY = false;
+			}
     }
   }
 

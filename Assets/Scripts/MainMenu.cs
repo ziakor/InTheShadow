@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using System;
 
 
 namespace MainMenu
@@ -15,15 +16,17 @@ namespace MainMenu
   {
     public enum Menu
     {
-        IdNewGame = 1,
-        IdContinueGame = 2,
-        IdSettings = 3,
-        IdCredits = 4,
-        IdExit = 5,
-        IdSettingsGraphic = 6,
-        IdSettingsSound = 7,
-        IdSettingsGameplay = 8,
-        IdSettingsGameplayController = 9
+				MainMenu = 0,
+        NewGame = 1,
+        ContinueGame = 2,
+        Settings = 3,
+        Credits = 4,
+        Exit = 5,
+        SettingsGraphic = 6,
+        SettingsSound = 7,
+        SettingsGameplay = 8,
+        SettingsGameplayController = 9,
+				LevelSelector = 10
     }
     #region Default Values
     [Header("Default Menu Values")]
@@ -65,7 +68,6 @@ namespace MainMenu
     [SerializeField] private Slider controllerSensitivitySlider;
     public float controlSenFloat = 2f;
     [Space(10)]
-    // [SerializeField] private Brightness brightnessEffect;
     [SerializeField] private Slider brightnessSlider;
     [SerializeField] private Text brightnessText;
     [SerializeField] private ColorAdjustEffect colorAdjustEffect;
@@ -84,21 +86,23 @@ namespace MainMenu
 
     [SerializeField] private bool testMode = false;
     [SerializeField] private GameObject continueButton;
-
 		[SerializeField]private GameObject myEventSystem;
-
+		public PlayerControls controls;
     #endregion
-
-
     private Menu menuSelectedNumber;
     
+
+
+		void Awake()
+		{
+			controls = new PlayerControls();
+			controls.Player.Escape.performed += context => HandleEscapeButton();
+		}
     void Start()
     {
-			// Debug.Log(">>>" + newGameDialog.transform.Find("Button").gameObject.transform.GetChild(0).gameObject);
-			Debug.Log(">>>" + mainMenuCanvas.transform.GetChild(0).gameObject);
 
 			myEventSystem = GameObject.Find("EventSystem");
-      menuSelectedNumber = Menu.IdNewGame;
+      menuSelectedNumber = Menu.MainMenu;
 			if (Player.HasSavegame)
 			{
 				continueButton.GetComponent<Button>().interactable = true;
@@ -106,6 +110,7 @@ namespace MainMenu
     }
 		void Update()
 		{
+			// print(menuSelectedNumber);
 		}
 
 
@@ -119,7 +124,7 @@ namespace MainMenu
       Debug.Log(SelectedButton);
       if (SelectedButton == "NewGame")
       {
-        menuSelectedNumber = Menu.IdNewGame;
+        menuSelectedNumber = Menu.NewGame;
         mainMenuCanvas.SetActive(false);
 
         confirmationMenu.SetActive(true);
@@ -128,13 +133,13 @@ namespace MainMenu
       }
       else if (SelectedButton == "ContinueGame")
       {
-        menuSelectedNumber = Menu.IdContinueGame;
+        menuSelectedNumber = Menu.ContinueGame;
         mainMenuCanvas.SetActive(false);
         ContinueGame();
       }
       else if (SelectedButton == "Settings")
       {
-        menuSelectedNumber = Menu.IdSettings;
+        menuSelectedNumber = Menu.Settings;
         mainMenuCanvas.SetActive(false);
         menuSettings.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(menuSettings.transform.GetChild(0).gameObject);
@@ -144,7 +149,7 @@ namespace MainMenu
       }
       else if (SelectedButton == "Credits")
       {
-        menuSelectedNumber = Menu.IdCredits;
+        menuSelectedNumber = Menu.Credits;
         mainMenuCanvas.SetActive(false);
         creditsMenu.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(creditsMenu.transform.GetChild(3).gameObject);
@@ -160,7 +165,7 @@ namespace MainMenu
       }
       else if (SelectedButton == "SettingsGraphic")
       {
-        menuSelectedNumber = Menu.IdSettingsGraphic;
+        menuSelectedNumber = Menu.SettingsGraphic;
         menuSettings.SetActive(false);
         graphicsMenu.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(graphicsMenu.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject);
@@ -169,7 +174,7 @@ namespace MainMenu
       }
       else if (SelectedButton == "SettingsSound")
       {
-        menuSelectedNumber = Menu.IdSettingsSound;
+        menuSelectedNumber = Menu.SettingsSound;
         menuSettings.SetActive(false);
         soundMenu.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(soundMenu.transform.GetChild(1).gameObject.transform.GetChild(1).gameObject);
@@ -178,7 +183,7 @@ namespace MainMenu
       }
       else if (SelectedButton == "SettingsGameplay")
       {
-        menuSelectedNumber = Menu.IdSettingsGameplay;
+        menuSelectedNumber = Menu.SettingsGameplay;
         menuSettings.SetActive(false);
         gameplayMenu.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(gameplayMenu.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject);
@@ -187,29 +192,30 @@ namespace MainMenu
       }
       else if (SelectedButton == "SettingsGameplayController")
       {
-        menuSelectedNumber = Menu.IdSettingsGameplayController;
+        menuSelectedNumber = Menu.SettingsGameplayController;
         gameplayMenu.SetActive(false);
         controlsMenu.SetActive(true);
 				myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(controlsMenu.transform.GetChild(2).gameObject);
 
       }
-      Debug.Log((int)menuSelectedNumber);
 
     }
 
     public void BackToSettingsMenu(string current)
     {
-      if (current == "Graphics")
+      if (current == "SettingsGraphic")
         graphicsMenu.SetActive(false);
-      else if (current == "Sound")
+      else if (current == "SettingsSound")
       {
         soundMenu.SetActive(false);
-        //Get volume from player pref if exist or 0.5
       }
-      else 
+      else if (current == "SettingsGameplay")
         gameplayMenu.SetActive(false);
+			else
+				return;
       menuSettings.SetActive(true);
 			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(menuSettings.transform.GetChild(0).gameObject);
+			menuSelectedNumber = Menu.Settings;
 
     }
 
@@ -219,7 +225,7 @@ namespace MainMenu
         creditsMenu.SetActive(false);
       else if (current == "Settings")
         menuSettings.SetActive(false);
-      else if (current == "NewGameModal")
+      else if (current == "NewGame")
       {
         confirmationMenu.SetActive(false);
         newGameDialog.SetActive(false);
@@ -228,8 +234,11 @@ namespace MainMenu
       {
         levelSelection.SetActive(false);
       }
+			else
+				return;
       mainMenuCanvas.SetActive(true);
 			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(mainMenuCanvas.transform.GetChild(0).gameObject);
+			menuSelectedNumber = Menu.MainMenu;
 
     }
     
@@ -238,8 +247,35 @@ namespace MainMenu
       gameplayMenu.SetActive(true);
       controlsMenu.SetActive(false);
 			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(gameplayMenu.transform.GetChild(2).gameObject.transform.GetChild(1).gameObject);
-
+			menuSelectedNumber = Menu.SettingsGameplay;
     }
+		private void HandleEscapeButton()
+		{
+			
+
+			foreach (string str in Enum.GetNames(typeof(Menu)))
+			{
+				if (menuSelectedNumber.ToString() == str)
+				{
+					Debug.Log("str: " + str);
+					Debug.Log("selected: "  + menuSelectedNumber.ToString());
+					BackToMainMenu(str);
+					BackToSettingsMenu(str);
+					if(str == "SettingsGameplayController")
+					{
+						Debug.Log("ENTER SET GAME");
+						BackToGameplaySettings();
+					}
+					if (str == "MainMenu")
+					{
+						Debug.Log("Exit");
+						Application.Quit();
+					}
+					return;
+				}
+			}
+
+		}
     public void VolumeSlider()
     {
       // AudioListener.volume = 0.0f;
@@ -263,14 +299,7 @@ namespace MainMenu
       saturationText.text = saturationSlider.value.ToString("n1");
       colorAdjustEffect.saturation = saturationSlider.value;
     }
-    public void SoundApply()
-    {
-      Debug.Log("Volume Apply !");
-      //add confirmation box 
 
-      PlayerPrefs.SetFloat("Volume", volumeSlider.value);
-      BackToSettingsMenu("Sound");
-    }
 
     public void resetSound()
     {
@@ -339,16 +368,27 @@ namespace MainMenu
 
         PlayerPrefs.SetInt("InvertY", 0);
       }
+			Player.ChangeInvertY(invertYToggle.isOn);
       PlayerPrefs.SetFloat("SensibilityController", controllerSensitivitySlider.value);
-      BackToSettingsMenu("Gameplay");
+			Player.ChangeControllerSensibility(controllerSensitivitySlider.value);
+      BackToSettingsMenu("SettingsGameplay");
     }
     public void GraphicApply()
     {
       PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
       PlayerPrefs.SetFloat("Contrast", contrastSlider.value);
       PlayerPrefs.SetFloat("Saturation", saturationSlider.value);
-      BackToSettingsMenu("Graphics");
+			Player.ChangeColorAdjustEffect(brightnessSlider.value,contrastSlider.value,saturationSlider.value);
+      BackToSettingsMenu("SettingsGraphic");
+    }
 
+		public void SoundApply()
+    {
+      Debug.Log("Volume Apply !");
+      //add confirmation box 
+
+      PlayerPrefs.SetFloat("Volume", volumeSlider.value);
+      BackToSettingsMenu("SettingsSound");
     }
     public void OpenGithub()
     {
@@ -376,7 +416,7 @@ namespace MainMenu
       newGameDialog.SetActive(false);
       levelSelection.SetActive(true);
 			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(levelSelection.transform.GetChild(2).gameObject);
-
+			menuSelectedNumber = Menu.LevelSelector;
 		}
 		public void ContinueGame()
 		{
@@ -384,8 +424,18 @@ namespace MainMenu
       newGameDialog.SetActive(false);
       levelSelection.SetActive(true);
 			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(levelSelection.transform.GetChild(2).gameObject);
+			menuSelectedNumber = Menu.LevelSelector;
+		}
+		void OnEnable()
+		{
+			controls.Enable();
+		}
 
+		void OnDisable()
+		{
+			controls.Disable();
 		}
   }
+
 }
 

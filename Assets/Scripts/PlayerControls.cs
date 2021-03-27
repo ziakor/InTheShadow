@@ -49,6 +49,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Value"",
+                    ""id"": ""17e68f46-63e9-4b0b-a3dd-d2a85b585ed1"",
+                    ""expectedControlType"": ""Key"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -95,6 +103,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""MoveObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30541d75-f463-44da-be18-a8c0c82b2074"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -107,6 +126,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_LockVerticalRotate = m_Player.FindAction("LockVerticalRotate", throwIfNotFound: true);
         m_Player_LockHorizontalRotate = m_Player.FindAction("LockHorizontalRotate", throwIfNotFound: true);
         m_Player_MoveObject = m_Player.FindAction("MoveObject", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -160,6 +180,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_LockVerticalRotate;
     private readonly InputAction m_Player_LockHorizontalRotate;
     private readonly InputAction m_Player_MoveObject;
+    private readonly InputAction m_Player_Escape;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -168,6 +189,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @LockVerticalRotate => m_Wrapper.m_Player_LockVerticalRotate;
         public InputAction @LockHorizontalRotate => m_Wrapper.m_Player_LockHorizontalRotate;
         public InputAction @MoveObject => m_Wrapper.m_Player_MoveObject;
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -189,6 +211,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MoveObject.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
                 @MoveObject.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
                 @MoveObject.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveObject;
+                @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,6 +230,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @MoveObject.started += instance.OnMoveObject;
                 @MoveObject.performed += instance.OnMoveObject;
                 @MoveObject.canceled += instance.OnMoveObject;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -215,5 +243,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnLockVerticalRotate(InputAction.CallbackContext context);
         void OnLockHorizontalRotate(InputAction.CallbackContext context);
         void OnMoveObject(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

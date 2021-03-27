@@ -14,7 +14,7 @@ public class ObjectMovement : MonoBehaviour
 	public bool  resetPosition = false;
 	public const float LEVEL_SELECTION_MAX_ROTATION = 25f;
 	public const float LEVEL_SELECTION_MIN_ROTATION = -25f;
-	public const float SPEED_ROTATION = 1.7f;
+	public  float SPEED_ROTATION = 1.0f;
 	public GameObject objectToRotate = null;
 
 	public Vector2 rotationCountShow;
@@ -61,15 +61,15 @@ public class ObjectMovement : MonoBehaviour
 		// Update is called once per frame
 		void Update()
 		{
-			// Debug.Log(moveObject);
 			if (objectToRotate != null)
 			{
 				if (!moveObject)
 					RotateObject();
 				else
 					MoveObject();
-
 			}
+			if (GameActive && GameActive.activeSelf)
+				is_Drag = false;
 		}
 
 	private void HandleVerticalRotatePerformed(InputAction.CallbackContext context)
@@ -176,18 +176,21 @@ public class ObjectMovement : MonoBehaviour
 		if (this.is_Drag)
 		{
 			Vector2 currentRotate = Mouse.current.delta.ReadValue();
-			Vector3 rotateValue = new Vector3(currentRotate.y, -currentRotate.x, 0);
+			if (Player.invertY)
+				currentRotate.y *= -1;
+			
+			// Vector3 rotateValue = new Vector3(currentRotate.y, -currentRotate.x, 0);
 			if (horizontalRotate)
 			{
 				if (currentRotate.x > 0 && (this.rotationCount.x < LEVEL_SELECTION_MAX_ROTATION || !limitRotation))
 				{
-					this.rotationCount.x += SPEED_ROTATION;
-					objectToRotate.transform.Rotate(0,-SPEED_ROTATION, 0, Space.World);
+					this.rotationCount.x += (SPEED_ROTATION * Player.sensibilityMouse);
+					objectToRotate.transform.Rotate(0,(-SPEED_ROTATION * Player.sensibilityMouse), 0, Space.World);
 				}
 				if (currentRotate.x < 0 && (this.rotationCount.x > LEVEL_SELECTION_MIN_ROTATION || !limitRotation))
 				{
-					this.rotationCount.x -= SPEED_ROTATION;
-					objectToRotate.transform.Rotate(0,SPEED_ROTATION, 0, Space.World);
+					this.rotationCount.x -= (SPEED_ROTATION * Player.sensibilityMouse);
+					objectToRotate.transform.Rotate(0,(SPEED_ROTATION * Player.sensibilityMouse), 0, Space.World);
 				}
 			}
 
@@ -195,13 +198,13 @@ public class ObjectMovement : MonoBehaviour
 			{
 				if (currentRotate.y > 0 && (this.rotationCount.y < LEVEL_SELECTION_MAX_ROTATION || !limitRotation))
 				{
-					this.rotationCount.y += SPEED_ROTATION;
-					objectToRotate.transform.Rotate(SPEED_ROTATION, 0, 0, Space.Self);
+					this.rotationCount.y += (SPEED_ROTATION * Player.sensibilityMouse) / 1.6f;
+					objectToRotate.transform.Rotate((SPEED_ROTATION * Player.sensibilityMouse) / 1.6f, 0, 0, Space.Self);
 				}
 				if (currentRotate.y < 0 && (this.rotationCount.y > LEVEL_SELECTION_MIN_ROTATION || !limitRotation))
 				{
-					this.rotationCount.y -= SPEED_ROTATION;
-					objectToRotate.transform.Rotate(-SPEED_ROTATION, 0, 0, Space.Self);
+					this.rotationCount.y -= (SPEED_ROTATION * Player.sensibilityMouse) / 1.6f;
+					objectToRotate.transform.Rotate((-SPEED_ROTATION * Player.sensibilityMouse) / 1.6f, 0, 0, Space.Self);
 				}
 			}
 		}
