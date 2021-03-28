@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
 	public static bool HasSavegame = false;
 	public static int currentLevel = 1;
+	
+	public static float[] bestTime = {0f, 0f, 0f};
 	public static bool	invertY = false;
 	public static float sensibilityMouse = 4;
 
@@ -50,7 +52,12 @@ public class Player : MonoBehaviour
 	{
 		level = newLevel;
 	}
-
+	public static void ChangeBestTime(int level, float new_Time)
+	{
+		Debug.Log(level + "|" + (level - 1));
+		Debug.Log(new_Time);
+		bestTime[level - 1] = new_Time;
+	}
 	public static void TestModePlayer(bool test)
 	{
 		testmode = test;
@@ -68,6 +75,7 @@ public class Player : MonoBehaviour
 			level = data.level;
 			testmode = data.testMode;
 			HasSavegame = true;
+			bestTime = data.bestTime;
 		}
 	}
 }

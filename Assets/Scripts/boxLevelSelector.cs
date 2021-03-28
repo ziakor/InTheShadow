@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class BoxLevelSelector : MonoBehaviour
 {
@@ -17,20 +18,31 @@ public class BoxLevelSelector : MonoBehaviour
 
 		public int levelNumber;
 
+		public GameObject boxLevelNotCompleted;
+
+		public GameObject boxLevelCompleted;
+
 		void Awake()
 		{
-		if (levelNumber <= Player.level || Player.testmode == true)
+			if (levelNumber <= Player.level || Player.testmode == true)
+			{
+				Debug.Log(levelNumber + "|" + Player.bestTime[levelNumber - 1]);
+				HandleChangeChild(true);
+				if (box_connection)
+					box_connection.SetActive(true);
+				if (Player.bestTime[levelNumber - 1] > 0)
 				{
-					HandleChangeChild(true);
-					if (box_connection)
-						box_connection.SetActive(true);
+					boxLevelNotCompleted.SetActive(false);
+					boxLevelCompleted.SetActive(true);
 				}
-				else
-				{
-					HandleChangeChild(false);
-					if (box_connection)
-						box_connection.SetActive(false);
-				}
+			}
+			else
+			{
+				HandleChangeChild(false);
+				if (box_connection)
+					box_connection.SetActive(false);
+			}
+
 		}
     void Start()
     {
@@ -45,12 +57,23 @@ public class BoxLevelSelector : MonoBehaviour
 					HandleChangeChild(true);
 					if (box_connection)
 						box_connection.SetActive(true);
+					if (Player.bestTime[levelNumber - 1] > 0)
+					{
+						boxLevelNotCompleted.SetActive(false);
+						boxLevelCompleted.SetActive(true);
+					}
+					else
+					{
+						boxLevelNotCompleted.SetActive(true);
+						boxLevelCompleted.SetActive(false);
+					}
 				}
 				else
 				{
 					HandleChangeChild(false);
 					if (box_connection)
 						box_connection.SetActive(false);
+						
 				}
     }
 

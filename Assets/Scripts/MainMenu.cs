@@ -412,6 +412,10 @@ namespace MainMenu
 			Player.ChangeLevel(1);
 			Player.ChangeCurrentLevel(1);
 			Player.SavePlayer();
+			for (int i = 1; i < 4; i++)
+			{
+					Player.ChangeBestTime(i, 0f);
+			}
       confirmationMenu.SetActive(false);
       newGameDialog.SetActive(false);
       levelSelection.SetActive(true);
