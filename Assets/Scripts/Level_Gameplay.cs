@@ -22,6 +22,8 @@ public class Level_Gameplay : MonoBehaviour
 
 		public GameObject	pauseButton;
 		public Color	hoverPauseButtonColor;
+
+		public float marginErrorRotation = 0.999f;
 		public Color	defaultPauseButtonColor;
 		private bool	isWin = false;
 
@@ -30,6 +32,7 @@ public class Level_Gameplay : MonoBehaviour
 		public float timer = 0;
 		public AudioSource winSound;
 
+		private bool positionCheck = false;
 		public Text timerText;
 		void Awake()
     {
@@ -52,7 +55,6 @@ public class Level_Gameplay : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
 			if (!isWin)
@@ -76,13 +78,23 @@ public class Level_Gameplay : MonoBehaviour
 		i = 0;
 		for (i = 0; i < objectToFind.Count; i++)
 		{
-			float res =Quaternion.Dot(objectToFind[0].transform.rotation, objectToUse[0].transform.rotation);
-			if ( res > -0.999 && res < 0.999 )
+			float res = Quaternion.Dot(objectToFind[i].transform.rotation, objectToUse[i].transform.rotation);
+			Debug.Log( "i" + i + "|" + res);
+			if (res > -marginErrorRotation && res < marginErrorRotation )
 				break;
+			if (i > 0)
+				checkPositionObjects(objectToUse[i - 1], objectToUse[i], objectToFind[i - 1], objectToFind[i]);
 				
 		}
+		Debug.Log("i:" + i + "|" +positionCheck);
 		if (i == objectToFind.Count)
 		{
+			if (objectToFind.Count > 1 && !positionCheck)
+			{
+				Debug.Log("NOCOUNTO");
+				return;
+			}
+			// return;
 			showWinModal();
 			isWin = true;
 			Debug.Log("Succes");
@@ -94,6 +106,24 @@ public class Level_Gameplay : MonoBehaviour
 			if (Player.currentLevel == Player.level)
 				Player.ChangeLevel(Player.level + 1);
 			Player.SavePlayer();
+		}
+	}
+
+	private void checkPositionObjects(GameObject toUse1, GameObject toUse2, GameObject toFind1, GameObject toFind2)
+	{
+		Vector3 relativePositiontoUse = toUse1.transform.InverseTransformPoint(toUse2.transform.position);
+		Vector3 relativePositionToFind = toFind1.transform.InverseTransformPoint(toFind2.transform.position);
+		Debug.Log("toUse " +relativePositiontoUse);
+		Debug.Log("toFind " + relativePositionToFind);
+		if ((relativePositiontoUse.x > relativePositionToFind.x - 2f && relativePositiontoUse.x < relativePositionToFind.x + 2f) && (relativePositiontoUse.y > (relativePositionToFind.y - 2f) && relativePositiontoUse.y < relativePositionToFind.y + 2f) && (relativePositiontoUse.z > relativePositionToFind.z - 2f && relativePositiontoUse.z < relativePositionToFind.z + 2f))
+		{
+			Debug.Log("GODODO");
+			positionCheck = true;
+		}
+		else
+		{
+			Debug.Log("FOLOLO");
+			positionCheck = false;
 		}
 	}
 	private void ClickSound()

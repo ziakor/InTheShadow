@@ -822,6 +822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0d42ac21ad338744980aab9a694c2ff0,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0d42ac21ad338744980aab9a694c2ff0,
+        type: 3}
       propertyPath: m_TagString
       value: Triggerable
       objectReference: {fileID: 0}
@@ -1429,7 +1434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &660039489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2159,7 +2164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 215}
+  m_AnchoredPosition: {x: 9, y: 179}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &952249959
@@ -2679,7 +2684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1232051800
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3255,6 +3260,7 @@ MonoBehaviour:
   winModal: {fileID: 660039488}
   pauseButton: {fileID: 713890138}
   hoverPauseButtonColor: {r: 0.32156864, g: 0.05882353, b: 0.05882353, a: 1}
+  marginErrorRotation: 0.997
   defaultPauseButtonColor: {r: 1, g: 1, b: 1, a: 1}
   levelMax: 3
   timer: 0
