@@ -69,7 +69,10 @@ public class ObjectMovement : MonoBehaviour
 					MoveObject();
 			}
 			if (GameActive && GameActive.activeSelf)
+			{
 				is_Drag = false;
+				moveObject = false;
+			}
 		}
 
 	private void HandleVerticalRotatePerformed(InputAction.CallbackContext context)
@@ -104,7 +107,8 @@ public class ObjectMovement : MonoBehaviour
 	}
 	private void HandleMoveObjectPerformed(InputAction.CallbackContext context)
 	{
-		this.moveObject = true;
+		if (!is_Drag)
+			this.moveObject = true;
 	}
 	private void HandleMoveObjectCanceled(InputAction.CallbackContext context)
 	{

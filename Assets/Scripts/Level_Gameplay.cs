@@ -99,11 +99,10 @@ public class Level_Gameplay : MonoBehaviour
 			isWin = true;
 			Debug.Log("Succes");
 			winSound.Play();
-			Debug.Log("Bestime: " + Player.bestTime[Player.currentLevel]);
-			Debug.Log("new_time: " + timer);
-			if (Player.bestTime[Player.currentLevel] == 0 || Player.bestTime[Player.currentLevel] > timer)
+			
+			if (Player.bestTime[Player.currentLevel - 1] == 0 || Player.bestTime[Player.currentLevel - 1] > timer)
 				Player.ChangeBestTime(Player.currentLevel, timer);
-			if (Player.currentLevel == Player.level)
+			if (Player.currentLevel == Player.level && Player.currentLevel < 3)
 				Player.ChangeLevel(Player.level + 1);
 			Player.SavePlayer();
 		}

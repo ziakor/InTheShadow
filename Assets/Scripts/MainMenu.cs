@@ -96,12 +96,13 @@ namespace MainMenu
 		void Awake()
 		{
 			controls = new PlayerControls();
+
 			controls.Player.Escape.performed += context => HandleEscapeButton();
 		}
     void Start()
     {
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(mainMenuCanvas.transform.GetChild(0).gameObject);
 
-			myEventSystem = GameObject.Find("EventSystem");
       menuSelectedNumber = Menu.MainMenu;
 			if (Player.HasSavegame)
 			{

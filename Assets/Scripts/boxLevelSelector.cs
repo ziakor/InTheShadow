@@ -88,14 +88,11 @@ public class BoxLevelSelector : MonoBehaviour
 		}
     public void BoxEnter()
     {
-      // Debug.Log("ENTER " + box.name);
-      
-      box.GetComponent<MeshRenderer>().material.color = hover_Color;
+      box.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color = hover_Color;
     }
     public void BoxLeave()
     {
-      // Debug.Log("LEAVE " + box.name);
-      box.GetComponent<MeshRenderer>().material.color = default_Color;
+      box.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color = default_Color;
     }
 
     public void LevelSelected(int idScene)
