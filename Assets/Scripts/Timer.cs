@@ -17,7 +17,6 @@ public class Timer : MonoBehaviour
 		
 		void Awake()
 		{
-			Debug.Log("AWAKE TIMER");
 			bestTime = Player.bestTime[level - 1];
 			DisplayBestTime();
 		
