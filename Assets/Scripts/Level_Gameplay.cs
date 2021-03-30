@@ -79,25 +79,22 @@ public class Level_Gameplay : MonoBehaviour
 		for (i = 0; i < objectToFind.Count; i++)
 		{
 			float res = Quaternion.Dot(objectToFind[i].transform.rotation, objectToUse[i].transform.rotation);
-			Debug.Log( "i" + i + "|" + res);
+
 			if (res > -marginErrorRotation && res < marginErrorRotation )
 				break;
 			if (i > 0)
 				checkPositionObjects(objectToUse[i - 1], objectToUse[i], objectToFind[i - 1], objectToFind[i]);
 				
 		}
-		Debug.Log("i:" + i + "|" +positionCheck);
 		if (i == objectToFind.Count)
 		{
 			if (objectToFind.Count > 1 && !positionCheck)
 			{
-				Debug.Log("NOCOUNTO");
 				return;
 			}
 			// return;
 			showWinModal();
 			isWin = true;
-			Debug.Log("Succes");
 			winSound.Play();
 			
 			if (Player.bestTime[Player.currentLevel - 1] == 0 || Player.bestTime[Player.currentLevel - 1] > timer)
@@ -112,16 +109,13 @@ public class Level_Gameplay : MonoBehaviour
 	{
 		Vector3 relativePositiontoUse = toUse1.transform.InverseTransformPoint(toUse2.transform.position);
 		Vector3 relativePositionToFind = toFind1.transform.InverseTransformPoint(toFind2.transform.position);
-		Debug.Log("toUse " +relativePositiontoUse);
-		Debug.Log("toFind " + relativePositionToFind);
+
 		if ((relativePositiontoUse.x > relativePositionToFind.x - 2f && relativePositiontoUse.x < relativePositionToFind.x + 2f) && (relativePositiontoUse.y > (relativePositionToFind.y - 2f) && relativePositiontoUse.y < relativePositionToFind.y + 2f) && (relativePositiontoUse.z > relativePositionToFind.z - 2f && relativePositiontoUse.z < relativePositionToFind.z + 2f))
 		{
-			Debug.Log("GODODO");
 			positionCheck = true;
 		}
 		else
 		{
-			Debug.Log("FOLOLO");
 			positionCheck = false;
 		}
 	}

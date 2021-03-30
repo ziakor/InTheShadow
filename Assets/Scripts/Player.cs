@@ -24,11 +24,6 @@ public class Player : MonoBehaviour
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	void Update()
-	{
-		// Debug.Log(Player.testmode);
-	}
-
 	public static void ChangeColorAdjustEffect(float new_Brightness, float new_Contrast, float new_Saturation)
 	{
 		brightness = new_Brightness;
@@ -54,8 +49,6 @@ public class Player : MonoBehaviour
 	}
 	public static void ChangeBestTime(int level, float new_Time)
 	{
-		Debug.Log(level + "|" + (level - 1));
-		Debug.Log(new_Time);
 		bestTime[level - 1] = new_Time;
 	}
 	public static void TestModePlayer(bool test)

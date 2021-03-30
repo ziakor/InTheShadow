@@ -26,7 +26,6 @@ public class ColorAdjustEffect : PostEffectBase {
 		brightness = Player.brightness;
 		contrast = Player.contrast;
 		saturation = Player.saturation;
-		// Debug.Log("SALSIFI " + brightness + "|" + contrast + "|" + saturation);
 	}
 	void OnRenderImage(RenderTexture src, RenderTexture dest)
 	{

@@ -40,7 +40,6 @@ namespace MainMenu
     #endregion
     private void Awake()
     {
-      Debug.Log("Load Player pref!");
 
       if (colorAdjustEffect != null)
       {

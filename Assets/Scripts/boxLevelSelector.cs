@@ -26,7 +26,6 @@ public class BoxLevelSelector : MonoBehaviour
 		{
 			if (levelNumber <= Player.level || Player.testmode == true)
 			{
-				Debug.Log(levelNumber + "|" + Player.bestTime[levelNumber - 1]);
 				HandleChangeChild(true);
 				if (box_connection)
 					box_connection.SetActive(true);
@@ -42,14 +41,8 @@ public class BoxLevelSelector : MonoBehaviour
 				if (box_connection)
 					box_connection.SetActive(false);
 			}
-
 		}
-    void Start()
-    {
-			// Debug.Log("SALSIFI" + this.gameObject.name);
-    }
 
-    // Update is called once per frame
     void Update()
     {
 				if (levelNumber <= Player.level || Player.testmode == true)

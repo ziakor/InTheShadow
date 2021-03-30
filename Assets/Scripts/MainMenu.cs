@@ -122,7 +122,6 @@ namespace MainMenu
 
     public void MainMouseClick(string SelectedButton)
     {
-      Debug.Log(SelectedButton);
       if (SelectedButton == "NewGame")
       {
         menuSelectedNumber = Menu.NewGame;
@@ -160,7 +159,6 @@ namespace MainMenu
       }
       else if (SelectedButton == "Exit")
       {
-        Debug.Log("EXIT!");
         Application.Quit();
 
       }
@@ -258,18 +256,14 @@ namespace MainMenu
 			{
 				if (menuSelectedNumber.ToString() == str)
 				{
-					Debug.Log("str: " + str);
-					Debug.Log("selected: "  + menuSelectedNumber.ToString());
 					BackToMainMenu(str);
 					BackToSettingsMenu(str);
 					if(str == "SettingsGameplayController")
 					{
-						Debug.Log("ENTER SET GAME");
 						BackToGameplaySettings();
 					}
 					if (str == "MainMenu")
 					{
-						Debug.Log("Exit");
 						Application.Quit();
 					}
 					return;
@@ -350,22 +344,18 @@ namespace MainMenu
     public void SensitivitySlider()
     {
       
-      Debug.Log("SALSIFI SLIDER " + controllerSensitivitySlider.value.ToString("#"));
       controllerSensitivityText.text = controllerSensitivitySlider.value.ToString("#");
     }
 
 
     public void GameplayApply()
     {
-      Debug.Log("Gameplay Apply ! ");
       //add confirmation box 
       if (invertYToggle.isOn)
       {
-				Debug.Log("InvertY On");
         PlayerPrefs.SetInt("InvertY", 1);
       }
       else {
-				Debug.Log("InvertY Off");
 
         PlayerPrefs.SetInt("InvertY", 0);
       }
@@ -385,7 +375,6 @@ namespace MainMenu
 
 		public void SoundApply()
     {
-      Debug.Log("Volume Apply !");
       //add confirmation box 
 
       PlayerPrefs.SetFloat("Volume", volumeSlider.value);
@@ -407,9 +396,7 @@ namespace MainMenu
 		}
     public void StartNewGame()
     {
-			Debug.Log("test mode " + testMode);
       Player.TestModePlayer(testMode);
-			Debug.Log("PlayerTestMode : " + Player.testmode);
 			Player.ChangeLevel(1);
 			Player.ChangeCurrentLevel(1);
 			Player.SavePlayer();

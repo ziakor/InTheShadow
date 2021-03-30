@@ -32,7 +32,7 @@ public class ObjectMovement : MonoBehaviour
 	private bool moveObject = false;
 	private float mouseZCoord;
 	private Vector3 mouseMoveOffset;
-
+	private Vector3[] moveBoundaries= {new Vector3(-1.9f, 76.4f, 3.6f),new Vector3(0.7f, 78f, 3.8f)};
 	public GameObject	GameActive;
 
 	private void Awake()
@@ -136,10 +136,8 @@ public class ObjectMovement : MonoBehaviour
 			this.is_Drag = true;
 			if (moveObject)
 			{
-				Debug.Log("NAME: " + objectToRotate.name);
 				mouseZCoord = gameCamera.WorldToScreenPoint(objectToRotate.transform.position).z;
 				mouseMoveOffset = objectToRotate.transform.position - GetMouseWOrldPos();
-				Debug.Log(mouseMoveOffset);
 			}
 		}
 	}
@@ -153,7 +151,6 @@ public class ObjectMovement : MonoBehaviour
 			if (hit.collider.gameObject.tag == "Triggerable" && (!GameActive  || !GameActive.activeSelf))
 			{
 				objectToRotate = hit.collider.gameObject;
-				Debug.Log(objectToRotate.name);
 				originalRotationValue = objectToRotate.transform.rotation;
 			}
 		}
@@ -161,13 +158,21 @@ public class ObjectMovement : MonoBehaviour
 
 	private void MoveObject()
 	{
-		// Debug.Log("Move Object Func");
 		if (objectToRotate != null && objectMoveable)
 		{
-			objectToRotate.transform.position = GetMouseWOrldPos() + mouseMoveOffset;
+			Vector3 newPos = GetMouseWOrldPos() + mouseMoveOffset;
+			if (newPos.x < moveBoundaries[0].x || newPos.x > moveBoundaries[1].x)
+				newPos.x = objectToRotate.transform.position.x;
+			
+			if (newPos.y < moveBoundaries[0].y || newPos.y > moveBoundaries[1].y)
+				newPos.y = objectToRotate.transform.position.y;
+			
+			if (newPos.z < moveBoundaries[0].z || newPos.z > moveBoundaries[1].z)
+				newPos.z = objectToRotate.transform.position.z;
+			objectToRotate.transform.position = newPos;
 		}
-
 	}
+
 	private Vector3 GetMouseWOrldPos()
 	{
 		Vector3 mousepoint = Mouse.current.position.ReadValue();

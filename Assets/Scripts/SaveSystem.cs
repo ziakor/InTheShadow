@@ -13,7 +13,6 @@ public static class SaveSystem
 
 		formatter.Serialize(stream, data);
 		stream.Close();
-		Debug.Log("SavePLayer");
 	}
 
 	public static PlayerData LoadPlayer()
@@ -30,7 +29,6 @@ public static class SaveSystem
 		}
 		else 
 		{
-			Debug.Log("Save file not found in" + path);
 			return null;
 		}
 	}  

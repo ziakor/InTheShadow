@@ -1084,7 +1084,7 @@ MonoBehaviour:
   rotationCount: {x: 0, y: 0}
   is_Drag: 0
   originalRotationValue: {x: 0, y: 0, z: 0, w: 0}
-  objectMoveable: 1
+  objectMoveable: 0
   GameActive: {fileID: 289005542}
 --- !u!1 &648616577
 GameObject:
@@ -1496,7 +1496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 215}
+  m_AnchoredPosition: {x: 9, y: 181.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &932698286
@@ -3546,7 +3546,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1805876422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 846560304}
@@ -3554,8 +3554,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000022888, y: 165}
-  m_SizeDelta: {x: 241.0736, y: 59.31546}
+  m_AnchoredPosition: {x: -0.000068665, y: 155}
+  m_SizeDelta: {x: 480.53424, y: 59.31546}
   m_Pivot: {x: 0.49999988, y: 0.5}
 --- !u!114 &1805876424
 MonoBehaviour:
@@ -3589,7 +3589,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Afraid of mice!
+  m_Text: An animal with a trunk!
 --- !u!222 &1805876425
 CanvasRenderer:
   m_ObjectHideFlags: 0
