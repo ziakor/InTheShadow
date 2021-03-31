@@ -120,6 +120,10 @@ namespace MainMenu
       GetComponent<AudioSource>().Play();
     }
 
+		public void UnselectMenu()
+		{
+			myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+		}
     public void MainMouseClick(string SelectedButton)
     {
       if (SelectedButton == "NewGame")
@@ -273,7 +277,6 @@ namespace MainMenu
 		}
     public void VolumeSlider()
     {
-      // AudioListener.volume = 0.0f;
       volumeText.text = volumeSlider.value.ToString("n1");
       AudioListener.volume = volumeSlider.value;
     }
